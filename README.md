@@ -1,4 +1,4 @@
-# PR-DARTS: Pruning-Based Differentiable Architecture Search (Submitted to ECCV-2022 Conference For Blind review)
+# PR-DARTS: Pruning-Based Differentiable Architecture Search
 
 This repository contains code and trained models for the PR-DARTS paper.
 PR-DARTS is a method for searching architectures of a network with pruned weights.
