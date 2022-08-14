@@ -1,0 +1,103 @@
+# ->->->->-> Primary <-<-<-<-<-
+arch: "darts"
+exp_name: "temp"
+result_dir: "./trained_models"
+num_classes: 1000
+exp_mode: "pretrain"
+layer_type: "subnet"
+init_type: "kaiming_normal"
+
+
+# ->->->->-> Pruning <-<-<-<-<-
+k: 1.0
+
+# ->->->->-> Train <-<-<-<-<-
+trainer: "base"
+epochs: 90
+optimizer: "sgd"
+lr: 0.1
+lr_schedule: "cosine"
+wd: 0.00003
+momentum: 0.9
+#warmup
+warmup_epochs: 0
+warmup_lr: 0.1
+
+
+# ->->->->-> Eval <-<-<-<-<-
+val_method: base
+
+
+# ->->->->-> Dataset <-<-<-<-<-
+dataset: imagenet
+batch_size: 8
+test_batch_size: 8
+data_dir: "data/nvme/imagenet_data/raw-data/"
+data_fraction: 1.0
+image_dim: 224
+mean: !!python/tuple [0.485, 0.456, 0.406]
+std: !!python/tuple [0.229, 0.224, 0.225]
+
+# # ->->->->-> Adv <-<-<-<-<-
+# epsilon: 0.0156 #(4/255)
+# num_steps: 10
+# step_size: 0.00392 #(1/255)
+# distance: "l_inf"
+# beta: 6.0
+
+# n_repeats: 4
+
+
+
+# ->->->->-> Misc <-<-<-<-<-
+gpu: "0,1"
+seed: 1234
+print_freq: 1000
+
+
+#->->->->-> DARTS Architecture search param <-<-<-<-
+learning_rate_darts : 0.025
+learning_rate_min_darts : 0.001
+weight_decay_darts : 0.0003
+epochs_darts : 50
+init_channels_darts : 16
+layers_darts : 8
+cutout_darts : False
+cutout_length_darts : 16
+drop_path_prob_darts : 0.3
+grad_clip_darts : 5
+train_portion_darts : 0.5
+unrolled_darts : True
+arch_learning_rate_darts : 0.0003
+arch_weight_decay_darts : 0.0001
+auxiliary_darts : False
+auxiliary_weight_darts : 0.4
+arch_darts : "DARTS"
+save_darts : 'EXP'
+data_darts : '../data'
+batch_size_darts : 8
+batch_size_test_darts : 8
+report_freq : 50
+########################################## NEW PARAM  #################################
+search_k_darts : 0.01
+train_search : False
+# ->->->->-> main train DARTS Architecture param <-<-<-<-
+trainer_td: "base"
+optimizer_td: "sgd"
+lr_schedule_td: "cosine"
+momentum_td: 0.9
+drop_prob_td : 0.0
+auxiliary_td : False
+auxiliary_weight_td : 0.4
+init_channels_td : 48
+cutout_td : True
+cutout_length_td: 16
+layers_td: 14
+batch_size_td: 8
+batch_size_test_td : 8
+epochs_td : 600
+learning_rate_td : 0.1
+layers_td : 14
+arch_td : "DARTS"
+#warmup
+
