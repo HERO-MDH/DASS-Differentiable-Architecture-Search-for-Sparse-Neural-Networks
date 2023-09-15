@@ -1,17 +1,16 @@
 # DASS: Differentiable Architecture Search for Sparse Neural Networks
 
 This repository contains code and trained models for the DASS paper [DASS: Differentiable Architecture Search for Sparse Neural Networks](https://dl.acm.org/doi/10.1145/3609385).
-DASS is a method for searching architectures of a network with pruned weights.
-When using the same pruning method, our searched architectures outperform other pruned networks whose architectures are well known floating-point networks. Our searched architectures also achieve competitive results with non-pruned networks.
+DASS proposes a new method to search for sparsity-friendly neural architectures. It is done by adding two new sparse operations to the search space and modifying the search objective. We propose two novel parametric SparseConv and SparseLinear operations in order to expand the search space to include sparse operations. In particular, these operations create a flexible search space due to their use of sparse parametric versions of linear and convolutional operations. The proposed search objective lets us train the architecture based on the sparsity of the search space operations.
 
 ## This repository
 
 The contents of this repository are as follows:
 
-* [PRDARTS/](PRDARTS) contains the code for search pruned network.
-* [hydra/](hydra) contains the code for pruning method.
-* [scripts/](scripts) contains utility functions to evaluate the resluts.
-* [figures/](figures) contains the main figures of results.
+* [PRDARTS/](DASS) contains the code to search sparse networks.
+* [hydra/](hydra) contains the code for the pruning method.
+* [scripts/](scripts) contains utility functions to evaluate the results.
+* [figures/](figures) contains the main figures of the results.
 
 ## Requirements
 ```
@@ -28,42 +27,42 @@ CIFAR-10 can be automatically downloaded by torchvision, ImageNet needs to be ma
 
 ## Inference with Pre-Trained Models
 
-To reproduce the results reported in the paper, you can use the pretrained models.
+To reproduce the results reported in the paper, you can use the pre-trained models.
 
-For CIFAR10 we evaulate PR-DARTS-Tiny (Small, Medium,Large) by the following setting:
+For CIFAR10, we evaluate DASS-Tiny (Small, Medium, large) by the following setting:
 
-- `--source_net`: pathe to the pretrain weights
+- `--source_net`: path to the pre-train weights
 
-Create the model by run:
+Create the model by running:
 
 ```
-model= create_model(cl,ll,'PR-DARTS architecture',InitChannels,Layers,10)
+model = create_model(cl,ll,'DASS architecture',InitChannels,Layers,10)
 ```
 
-Run the following script to generate accuracy and latency and number of parameters:
+Run the following script to generate accuracy, latency, and the number of parameters:
 
 ```
 cd Scipts && python statics.py 
 ```
 
-## Pruned Architecture search (PR-DARTS)
-To carry out pruned architecture search run:
+## DASS: Differentiable Architecture Search for Sparse Neural Networks
+To run the search algorithm:
 
 ```
-cd PRDARTS && python train_search.py --unrolled   
+cd DASS && python train_search.py --unrolled   
 ```
-Note the validation performance in this step does not indicate the final performance of the pruned network. One must use a pruning method to the obtained genotype/architecture from scratch. Also be aware that different runs would end up with different local minimum.
+Note that the validation performance in this step does not indicate the final performance of the pruned network. One must use a pruning method to obtain the genotype or architecture from scratch. Also, be aware that different runs would end up with different local minimums.
 
-- `--layer_type`: select subnet for using PrundConv and PrundLinear 
+- `--layer_type`: select a subnet for using PrundConv and PrundLinear 
 - `--pruning_ratio`: float number for pruning ratio
 - `--prune_learning_rate`: learning rate for pruning step
 - `--finetune_learning_rate`: learning rate for finetuning step
 
 ## Pruning Method (HYDRA)
 
-We will use `hydra/train.py` for all our experiments on the CIFAR-10. For ImageNet, we will use `hydra/train_imagenet.py`. It provides the flexibility to work with pre-training, pruning, and Finetuning steps.
+We will use `hydra/train.py` for all our experiments on the CIFAR-10. For ImageNet, we will use `hydra/train_imagenet.py`. It provides the flexibility to work with pre-training, pruning, and fine-tuning steps.
 
-- `--exp_mode`: select from pretrain, prune, finetune
+- `--exp_mode`: select from pre-train, prune, finetune
 - `--dataset`: cifar10, imagenet
 - `--k`: pruning ratio
 
