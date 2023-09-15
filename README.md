@@ -1,7 +1,7 @@
-# PR-DARTS: Pruning-Based Differentiable Architecture Search
+# DASS: Differentiable Architecture Search for Sparse Neural Networks
 
-This repository contains code and trained models for the PR-DARTS paper.
-PR-DARTS is a method for searching architectures of a network with pruned weights.
+This repository contains code and trained models for the DASS paper [DASS: Differentiable Architecture Search for Sparse Neural Networks](https://dl.acm.org/doi/10.1145/3609385).
+DASS is a method for searching architectures of a network with pruned weights.
 When using the same pruning method, our searched architectures outperform other pruned networks whose architectures are well known floating-point networks. Our searched architectures also achieve competitive results with non-pruned networks.
 
 ## This repository
