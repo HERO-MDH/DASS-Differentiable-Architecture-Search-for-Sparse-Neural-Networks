@@ -7,7 +7,7 @@ DASS proposes a new method to search for sparsity-friendly neural architectures.
 
 The contents of this repository are as follows:
 
-* [PRDARTS/](DASS) contains the code to search sparse networks.
+* [DASS/](DASS) contains the code to search sparse networks.
 * [hydra/](hydra) contains the code for the pruning method.
 * [scripts/](scripts) contains utility functions to evaluate the results.
 * [figures/](figures) contains the main figures of the results.
